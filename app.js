@@ -1,4 +1,5 @@
 // local reviews data, we consider having such a data like this
+// usually getting this data via API
 const reviews = [
      {
           id: 1,
@@ -29,3 +30,53 @@ const reviews = [
           text: 'Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic. ',
      },
 ];
+
+// access elements
+let author = document.querySelector('#author');
+let job = document.querySelector('#job');
+let info = document.querySelector('#info');
+let img = document.querySelector('#person-img');
+
+const nextArrow = document.querySelector('.next-btn');
+const prevArrow = document.querySelector('.prev-btn');
+const randomArrow = document.querySelector('.random-btn');
+
+// set starting item
+let currentIndex = 0;
+
+// load initial item when page loaded
+window.addEventListener('DOMContentLoaded', function () {
+     showReview(currentIndex);
+});
+
+
+function showReview(person) {
+     const item = reviews[person];
+     img.src = item.img;
+     author.textContent = item.name;
+     job.textContent = item.job;
+     info.textContent = item.text;
+}
+
+// show next review (person)
+nextArrow.addEventListener('click', function () {
+
+     currentIndex++;
+     currentIndex > reviews.length - 1 ? currentIndex = 0 : currentIndex;
+     showReview(currentIndex);
+});
+
+// show previous reveiw (person)
+prevArrow.addEventListener('click', function () {
+
+     currentIndex--;
+     currentIndex < 0 ? currentIndex = reviews.length - 1 : currentIndex;
+     showReview(currentIndex);
+});
+
+// show random reveiw
+randomArrow.addEventListener('click', function () {
+
+     currentIndex = Math.floor(Math.random() * reviews.length);
+     showReview(currentIndex);
+});
